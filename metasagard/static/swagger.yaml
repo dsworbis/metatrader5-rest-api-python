@@ -1,0 +1,289 @@
+swagger: '2.0'
+info:
+  title: MetaTrader5 API
+  version: '1.0'
+paths:
+  /mt/get-account:
+    get:
+      summary: Get account information
+      description: Returns information about the current account.
+      responses:
+        200:
+          description: Successful response with account information.
+          schema:
+            type: object
+            properties:
+              login:
+                type: integer
+                description: The account login.
+              name:
+                type: string
+                description: The account name.
+              server:
+                type: string
+                description: The account server name.
+              currency:
+                type: string
+                description: The account currency.
+              balance:
+                type: number
+                description: The account balance.
+              equity:
+                type: number
+                description: The account equity.
+              margin:
+                type: number
+                description: The account margin.
+              margin_level:
+                type: number
+                description: The account margin level.
+              free_margin:
+                type: number
+                description: The account free margin.
+
+  /mt/get-positions:
+    get:
+      summary: Get open positions
+      description: Returns information about the open positions.
+      responses:
+        200:
+          description: Successful response with position information.
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                ticket:
+                  type: integer
+                  description: The position ticket.
+                symbol:
+                  type: string
+                  description: The position symbol.
+                magic:
+                  type: integer
+                  description: The position magic number.
+                volume:
+                  type: number
+                  description: The position volume.
+                open_time:
+                  type: string
+                  format: date-time
+                  description: The position open time.
+                type:
+                  type: string
+                  description: The position type (BUY or SELL).
+                open_price:
+                  type: number
+                  description: The position open price.
+                sl:
+                  type: number
+                  description: The position stop loss.
+                tp:
+                  type: number
+                  description: The position take profit.
+                swap:
+                  type: number
+                  description: The position swap.
+                profit:
+                  type: number
+                  description: The position profit.
+
+  /mt/get-deals-from:
+    post:
+      summary: Get deals history between start and end times
+      parameters:
+        - in: body
+          name: body
+          description: Start and end dates for orders to retrieve.
+          required: true
+          schema:
+            type: object
+            properties:
+              start:
+                type: string
+                format: date-time
+                description: The start date and time for the order history to retrieve.
+              end:
+                type: string
+                format: date-time
+                description: The end date and time for the order history to retrieve.
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                ticket:
+                  type: integer
+                  description: Order ticket number
+                time:
+                  type: string
+                  format: date-time
+                  description: Order open time
+                type:
+                  type: integer
+                  description: Order type
+                volume:
+                  type: number
+                  description: Order volume
+                price:
+                  type: number
+                  description: Order open price
+                sl:
+                  type: number
+                  description: Stop loss level
+                tp:
+                  type: number
+                  description: Take profit level
+                magic:
+                  type: integer
+                  description: Order magic number
+                comment:
+                  type: string
+                  description: Order comment
+                commission:
+                  type: number
+                  description: Order commission
+                swap:
+                  type: number
+                  description: Order swap
+                profit:
+                  type: number
+                  description: Order profit/loss
+                symbol:
+                  type: string
+                  description: Symbol for the order
+                reason:
+                  type: integer
+                  description: Order reason code
+                position_id:
+                  type: integer
+                  description: Position ID for the order
+                order_by:
+                  type: string
+                  description: Order direction (Buy or Sell)
+
+  /mt/get-orders-from:
+    post:
+      summary: Get order history between start and end times
+      parameters:
+        - in: body
+          name: body
+          description: Start and end dates for orders to retrieve.
+          required: true
+          schema:
+            type: object
+            properties:
+              start:
+                type: string
+                format: date-time
+                description: The start date and time for the order history to retrieve.
+              end:
+                type: string
+                format: date-time
+                description: The end date and time for the order history to retrieve.
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                ticket:
+                  type: integer
+                  description: Order ticket number
+                time:
+                  type: string
+                  format: date-time
+                  description: Order open time
+                type:
+                  type: integer
+                  description: Order type
+                volume:
+                  type: number
+                  description: Order volume
+                price:
+                  type: number
+                  description: Order open price
+                sl:
+                  type: number
+                  description: Stop loss level
+                tp:
+                  type: number
+                  description: Take profit level
+                magic:
+                  type: integer
+                  description: Order magic number
+                comment:
+                  type: string
+                  description: Order comment
+                commission:
+                  type: number
+                  description: Order commission
+                swap:
+                  type: number
+                  description: Order swap
+                profit:
+                  type: number
+                  description: Order profit/loss
+                symbol:
+                  type: string
+                  description: Symbol for the order
+                reason:
+                  type: integer
+                  description: Order reason code
+                position_id:
+                  type: integer
+                  description: Position ID for the order
+                order_by:
+                  type: string
+                  description: Order direction (Buy or Sell)
+  /static/swagger.yaml:
+    get:
+      summary: Get Swagger specification
+      description: Returns the Swagger specification for the MetaTrader5 API.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Swagger specification in YAML format.
+          schema:
+            type: object
+  /mt/get-total-from:
+    post:
+      summary: Get total net profit
+      parameters:
+        - in: body
+          name: body
+          description: Start and end dates for orders to retrieve.
+          required: true
+          schema:
+            type: object
+            properties:
+              start:
+                type: string
+                format: date-time
+                description: The start date and time for the order history to retrieve.
+              end:
+                type: string
+                format: date-time
+                description: The end date and time for the order history to retrieve.
+      responses:
+        200:
+          description: Total net profit for the given date range
+          schema:
+            $ref: '#/definitions/NetResult'
+        400:
+          description: Invalid request payload
+        500:
+          description: Internal server error
+definitions:
+  NetResult:
+    type: object
+    properties:
+      net_profit:
+        type: number
+        description: Total net profit for the given date range
